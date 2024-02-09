@@ -5,13 +5,20 @@ use axum::{extract::State, response::Html, routing::get, Router};
 use tokio::net::TcpListener;
 
 use dioxus::prelude::*;
+use tower_http::services::ServeDir;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
     let addr = "0.0.0.0:3000";
+
     let state = Arc::new(HtmlConfig::new("lostdisplay.space"));
     let listener = TcpListener::bind(addr).await?;
-    let app = Router::new().route("/", get(root)).with_state(state);
+    let dir = ServeDir::new("public");
+
+    let app = Router::new()
+        .route("/", get(root))
+        .nest_service("/public", dir.clone())
+        .with_state(state);
 
     axum::serve(listener, app).await
 }
@@ -31,7 +38,9 @@ impl HtmlConfig {
 fn pack_nodes(cfg: &HtmlConfig, nodes: LazyNodes) -> String {
     let body = dioxus_ssr::render_lazy(nodes);
     format!(
-        include_str!("index.html"), title = cfg.title, body = body,
+        include_str!("index.html"),
+        title = cfg.title,
+        body = body,
         head = "",
     )
 }
@@ -48,7 +57,6 @@ struct LinkProps<'a> {
 fn Link<'a>(cx: Scope<'a, LinkProps<'a>>) -> Element {
     render! {
         div {
-            class: "text-red",
             "{cx.props.name}"
         }
     }
@@ -56,6 +64,9 @@ fn Link<'a>(cx: Scope<'a, LinkProps<'a>>) -> Element {
 
 fn App(cx: Scope) -> Element {
     render! {
-        Link { name: "test" }
+        div {
+            class: "flex w-dvw h-dvh bg-space-surface",
+            Link { name: "test" }
+        }
     }
 }
