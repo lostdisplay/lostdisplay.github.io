@@ -33,7 +33,7 @@ fn Link<'a>(cx: Scope<'a, LinkProps<'a>>) -> Element {
         a {
             class: "hover:-translate-y-1",
             href: "{cx.props.url}",
-            rel: "noreferrer",
+            rel: "me",
             img {
                 class: "h-16",
                 style: "{PIXEL_STYLE}",
