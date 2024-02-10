@@ -2,9 +2,13 @@
 
 use dioxus::prelude::*;
 
-fn main() {
-    dioxus_web::launch(App);
-}
+const PIXEL_STYLE: &'static str = "-ms-interpolation-mode: nearest-neighbor; image-rendering: -webkit-optimize-contrast; image-rendering: -moz-crisp-edges; image-rendering: -o-pixelated; image-rendering: pixelated;";
+const LINKS: [LinkProps<'static>; 4] = [
+    LinkProps::new("itch.png", "https://lostdisplay.itch.io"),
+    LinkProps::new("youtube.png", "https://youtube.com/@lostdisplay"),
+    LinkProps::new("kofi.png", "https://ko-fi.com/lostdisplay"),
+    LinkProps::new("mastodon.png", "https://mastodon.gamedev.place/@lostdisplay"),
+];
 
 #[derive(Debug, Props, PartialEq)]
 struct LinkProps<'a> {
@@ -18,31 +22,31 @@ impl<'a> LinkProps<'a> {
     }
 }
 
+
+// Main entry point
+fn main() {
+    dioxus_web::launch(App);
+}
+
 fn Link<'a>(cx: Scope<'a, LinkProps<'a>>) -> Element {
     render! {
         a {
+            class: "hover:-translate-y-1",
             href: "{cx.props.url}",
             img {
-                class: "h-20",
-                style: "image-rendering: crisp-edges",
+                class: "h-16",
+                style: "{PIXEL_STYLE}",
                 src: "/{cx.props.icon}"
             }
         }
     }
 }
 
-const LINKS: [LinkProps<'static>; 4] = [
-    LinkProps::new("itch.png", "https://itch.io/lostdisplay"),
-    LinkProps::new("youtube.png", "https://youtube.com/lostdisplay"),
-    LinkProps::new("mastodon.png", "https://mastodon.gamedev.place/@lostdisplay"),
-    LinkProps::new("kofi.png", "https://ko-fi.com/lostdisplay"),
-];
-
 fn Header(cx: Scope) -> Element {
     render! {
         img {
-            class: "h-48 w-48",
-            style: "image-rendering: crisp-edges",
+            class: "h-40",
+            style: "{PIXEL_STYLE}",
             src: "/lostdisplay_peace.png"
         }
     }
@@ -51,10 +55,10 @@ fn Header(cx: Scope) -> Element {
 fn App(cx: Scope) -> Element {
     render! {
         div {
-            class: "flex flex-col justify-center items-center gap-2 w-dvw h-dvh bg-surface",
+            class: "flex flex-col justify-center items-center gap-4 w-dvw h-dvh bg-surface",
             Header {}
             div {
-                class: "flex flex-row",
+                class: "flex flex-row gap-8",
                 LINKS.iter().map(|props| rsx!{ Link { url: props.url, icon: props.icon } })
             }
         }
