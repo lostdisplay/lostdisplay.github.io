@@ -6,10 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-axum = "0.7.4"
 dioxus = "0.4.3"
-dioxus-ssr = "0.4.3"
 dioxus-web = "0.4.3"
-pretty_env_logger = "0.5.0"
-tokio = "1.36.0"
-tower-http = { version = "0.5.1", features = [ "fs" ] }

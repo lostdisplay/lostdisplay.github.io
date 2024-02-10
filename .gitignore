@@ -1,3 +1,7 @@
 /target
 /dist
-public/tailwind.css
+/node_modules
+
+public/*
+!public/.gitkeep
+

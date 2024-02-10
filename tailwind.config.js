@@ -8,12 +8,10 @@ module.exports = {
         "./dist/**/*.html",
     ],
     theme: {
-        extends: {
-            colors: {
-                surface: "#ffcd75",
-                text: "#f4f4f4",
-                accent: "#1a1c2c"
-            }
+        colors: {
+            surface: "#ffcd75",
+            text: "#f4f4f4",
+            accent: "#1a1c2c"
         }
     },
     plugins: [],

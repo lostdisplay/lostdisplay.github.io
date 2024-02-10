@@ -1,47 +1,23 @@
 [application]
-
-# App name
-name = "lostdisplay"
-
-# The Dioxus platform to default to
-default_platform = "web"
-
-# `build` & `serve` output path
-out_dir = "dist"
-
-# The static resource path
-asset_dir = "public"
+name = "lostdisplay" # App name
+default_platform = "web" # The Dioxus platform to default to
+out_dir = "dist" # `build` & `serve` output path
+asset_dir = "public" # The static resource path
 
 [web.app]
-
-# HTML title tag content
-title = "lostdisplay.space"
+title = "lostdisplay.space" # HTML title tag content
 
 [web.watcher]
-
-# When watcher is triggered, regenerate the `index.html`
-reload_html = true
-
-# Which files or dirs will be monitored
-watch_path = ["src", "public"]
+reload_html = true # When watcher is triggered, regenerate the `index.html`
+watch_path = ["src", "public", "assets"] # Which files or dirs will be monitored
 
 # Include style or script assets
 [web.resource]
-
-# CSS style file
 style = ["/tailwind.css"]
-
-# Javascript code file
 script = []
 
 [web.resource.dev]
-
-# Same as [web.resource], but for development servers
-
-# CSS style file
 style = []
-
-# JavaScript files
 script = []
 
 [[web.proxy]]

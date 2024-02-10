@@ -5,19 +5,24 @@ fn main() {
     let target_dir =
         std::env::var("OUT_DIR").expect("OUT_DIR env var is not set, is this running under cargo?");
 
-    //println!("cargo:rerun-if-changed={manifest_dir}/src");
-    //println!("cargo:rerun-if-changed={manifest_dir}/build.rs");
+    println!("cargo:rerun-if-changed={manifest_dir}/src");
+    println!("cargo:rerun-if-changed={manifest_dir}/build.rs");
 
-    let output = std::process::Command::new("tailwindcss")
-        .arg(format!("-i {}/src/input.css", manifest_dir))
-        .arg(format!("-o {}/public/tailwind.css", manifest_dir))
+    let mut cmd = std::process::Command::new("npx");
+    let cmd = cmd
+        .arg("tailwindcss")
+        .args(["-i", &format!("{}/src/input.css", manifest_dir)])
+        .args(["-o", &format!("{}/public/tailwind.css", manifest_dir)]);
+
+    let output = cmd
         .output()
-        .expect("Coult not run tailwind compiler. Is tailwindcss installed?");
+        .expect("Coult not run tailwind compiler. Did you run `npm install`?");
 
     if !output.status.success() {
-        println!(
-            "tailwind stdout:\n{}",
-            String::from_utf8(output.stdout).unwrap()
-        )
+        let line = "========";
+        let stdout = String::from_utf8(output.stdout).unwrap();
+        let stderr = String::from_utf8(output.stderr).unwrap();
+
+        panic!("{line} tailwind failed \n -> manifest dir: {manifest_dir}\n command -> {cmd:?}.\nstdout:\n{stdout}\n\nstderr:\n{stderr}\n{line}",)
     }
 }
