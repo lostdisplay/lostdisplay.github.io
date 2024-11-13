@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>lostdisplay.space</title>
+    <meta name="description" content="A website from/about lostdisplay">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preload" href="sprites.png" as="image" type="image/png">
+</head>
+
+<style>
+    html {
+        background-color: #ffcd75;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+
+        opacity: 0;
+        animation: start-up 0.175s linear 0.25s forwards;
+    }
+
+    body {
+        display: grid;
+        place-items: center;
+        grid-template:
+            'lostdisplay lostdisplay lostdisplay' min-content
+            'youtube itch mastodon' min-content;
+        grid-column: auto;
+        row-gap: 32px;
+        column-gap: 24px;
+    }
+
+    a {
+        filter: drop-shadow(2px 1px 0px #ef7d57);
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+
+    .itch,
+    .mastodon,
+    .youtube,
+    .lostdisplay {
+        image-rendering: crisp-edges;
+        zoom: 400%;
+        width: 14px;
+        height: 14px;
+        background: url(sprites.png);
+    }
+
+    .itch {
+        grid-area: itch;
+    }
+
+    .mastodon {
+        background-position: 0px -14px;
+        grid-area: mastodon;
+    }
+
+    .youtube {
+        background-position: -14px 0px;
+        grid-area: youtube;
+    }
+
+    .lostdisplay {
+        width: 23px;
+        height: 27px;
+        background-position: -28px 0px;
+        grid-area: lostdisplay;
+    }
+
+    @keyframes start-up {
+        0% {
+            opacity: 0;
+        }
+
+        1% {
+            opacity: 1;
+            translate: 0 1%;
+        }
+
+        33% {
+            translate: 0 -0.5%;
+        }
+
+        100% {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+</style>
+
+<body>
+    <div class="lostdisplay" src="sprites.png"></div>
+    <a class="youtube" src="sprites.png" href="https://www.youtube.com/@lostdisplay"></a>
+    <a class="itch" src="sprites.png" href="https://lostdisplay.itch.io/"></a>
+    <a class="mastodon" src="sprites.png" href="https://mastodon.gamedev.place/@lostdisplay"></a>
+</body>
+
+</html>
