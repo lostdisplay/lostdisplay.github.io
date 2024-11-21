@@ -29,7 +29,7 @@
     }
 
     a {
-        &:not(:focus) {
+        &:not(:focus-visible) {
             filter: drop-shadow(2px 1px 0px #ef7d57);
         }
 
@@ -39,7 +39,7 @@
             margin-bottom: -1px;
         }
 
-        &:focus {
+        &:focus-visible {
             outline: 1px dashed #333c57;
             outline-offset: 1px;
         }
